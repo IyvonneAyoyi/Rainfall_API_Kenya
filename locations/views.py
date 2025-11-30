@@ -3,8 +3,7 @@ from rest_framework import generics, permissions, serializers
 from rest_framework.permissions import IsAuthenticated
 from .models import Location
 from .serializers import LocationSerializer
-from .services import geocode_location
-
+from .services import geocode_location, reverse_geocode_location  # <-- add reverse function
 
 # List and Create view for Locations
 class LocationListCreateView(generics.ListCreateAPIView):
@@ -18,7 +17,7 @@ class LocationListCreateView(generics.ListCreateAPIView):
         latitude = self.request.data.get("latitude")
         longitude = self.request.data.get("longitude")
 
-        # If user provided a location name but no lat/lng, geocode it
+        # Geocode:Name provided but no coordinates
         if name and (not latitude or not longitude):
             latitude, longitude = geocode_location(name)
             if latitude is None or longitude is None:
@@ -26,12 +25,21 @@ class LocationListCreateView(generics.ListCreateAPIView):
                     {"error": "Could not geocode the location name."}
                 )
 
-        # Try saving (handle duplicates safely)
+        # Reverse Geocode:Coordinates provided but no name
+        if (latitude is not None and longitude is not None) and not name:
+            name = reverse_geocode_location(latitude, longitude)
+            if not name:
+                raise serializers.ValidationError(
+                    {"error": "Could not reverse geocode the coordinates."}
+                )
+
+        # Save with logged-in user and coordinates
         try:
             serializer.save(
                 user=self.request.user,
-                latitude=latitude if latitude is not None else self.request.data.get("latitude"),
-                longitude=longitude if longitude is not None else self.request.data.get("longitude")
+                name=name,
+                latitude=latitude,
+                longitude=longitude
             )
         except IntegrityError:
             raise serializers.ValidationError(
