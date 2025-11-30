@@ -5,13 +5,13 @@ import time
 # Proper descriptive user agent - for Nominatim usage policy
 geolocator = Nominatim(user_agent="rainfall_api_kenya_v1", timeout=10)
 
+
 def geocode_location(location_name, retries=1):
     """
     Given a location name (string), return (latitude, longitude).
     Retries once on timeout.
     Returns (None, None) if geocoding fails.
     """
-
     if not location_name:
         return None, None
 
@@ -22,12 +22,35 @@ def geocode_location(location_name, retries=1):
 
     except GeocoderTimedOut:
         if retries > 0:
-            time.sleep(2)   # wait 2 seconds then retry
+            time.sleep(2)
             return geocode_location(location_name, retries=retries - 1)
-        else:
-            print("Geocoding failed after retry due to timeout.")
 
     except GeocoderServiceError as e:
         print(f"Geocoding service error: {e}")
 
     return None, None
+
+
+def reverse_geocode(latitude, longitude, retries=1):
+    """
+    Given coordinates, return a human-readable location name.
+    Returns None if reverse geocoding fails.
+    """
+
+    if not latitude or not longitude:
+        return None
+
+    try:
+        location = geolocator.reverse((latitude, longitude))
+        if location:
+            return location.address
+
+    except GeocoderTimedOut:
+        if retries > 0:
+            time.sleep(2)
+            return reverse_geocode(latitude, longitude, retries=retries - 1)
+
+    except GeocoderServiceError as e:
+        print(f"Reverse geocoding error: {e}")
+
+    return None
