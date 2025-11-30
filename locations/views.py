@@ -3,7 +3,7 @@ from rest_framework import generics, permissions, serializers
 from rest_framework.permissions import IsAuthenticated
 from .models import Location
 from .serializers import LocationSerializer
-from .services import geocode_location, reverse_geocode_location  # <-- add reverse function
+from .services import geocode_location, reverse_geocode_location
 
 # List and Create view for Locations
 class LocationListCreateView(generics.ListCreateAPIView):
@@ -17,15 +17,24 @@ class LocationListCreateView(generics.ListCreateAPIView):
         latitude = self.request.data.get("latitude")
         longitude = self.request.data.get("longitude")
 
-        # Geocode:Name provided but no coordinates
-        if name and (not latitude or not longitude):
+        # Convert coordinates to float if provided
+        try:
+            latitude = float(latitude) if latitude is not None else None
+            longitude = float(longitude) if longitude is not None else None
+        except (ValueError, TypeError):
+            raise serializers.ValidationError(
+                {"error": "Latitude and longitude must be numeric values."}
+            )
+
+        # Geocode: Name provided but no coordinates
+        if name and (latitude is None or longitude is None):
             latitude, longitude = geocode_location(name)
             if latitude is None or longitude is None:
                 raise serializers.ValidationError(
                     {"error": "Could not geocode the location name."}
                 )
 
-        # Reverse Geocode:Coordinates provided but no name
+        # Reverse Geocode: Coordinates provided but no name
         if (latitude is not None and longitude is not None) and not name:
             name = reverse_geocode_location(latitude, longitude)
             if not name:
