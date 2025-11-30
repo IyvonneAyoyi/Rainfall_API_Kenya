@@ -1,6 +1,5 @@
-from rest_framework import generics, permissions, serializers, status
+from rest_framework import generics, permissions, serializers
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from .models import Location
 from .serializers import LocationSerializer
 from .services import geocode_location
