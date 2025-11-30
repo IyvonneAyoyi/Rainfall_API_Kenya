@@ -144,6 +144,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S%z",
 }
 
 SIMPLE_JWT = {
@@ -154,3 +155,7 @@ SIMPLE_JWT = {
 
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# Set timezone to Nairobi
+TIME_ZONE = 'Africa/Nairobi'
+USE_TZ = True
