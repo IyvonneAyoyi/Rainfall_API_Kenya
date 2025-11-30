@@ -1,8 +1,10 @@
+from django.db import IntegrityError
 from rest_framework import generics, permissions, serializers
 from rest_framework.permissions import IsAuthenticated
 from .models import Location
 from .serializers import LocationSerializer
 from .services import geocode_location
+
 
 # List and Create view for Locations
 class LocationListCreateView(generics.ListCreateAPIView):
@@ -24,12 +26,17 @@ class LocationListCreateView(generics.ListCreateAPIView):
                     {"error": "Could not geocode the location name."}
                 )
 
-        # Save with logged-in user and geocoded coordinates if available
-        serializer.save(
-            user=self.request.user,
-            latitude=latitude if latitude is not None else self.request.data.get("latitude"),
-            longitude=longitude if longitude is not None else self.request.data.get("longitude")
-        )
+        # Try saving (handle duplicates safely)
+        try:
+            serializer.save(
+                user=self.request.user,
+                latitude=latitude if latitude is not None else self.request.data.get("latitude"),
+                longitude=longitude if longitude is not None else self.request.data.get("longitude")
+            )
+        except IntegrityError:
+            raise serializers.ValidationError(
+                {"error": "You have already added this location."}
+            )
 
 
 # Retrieve, Update, Delete view for a single Location
