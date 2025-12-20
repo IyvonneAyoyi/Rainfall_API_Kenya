@@ -1,7 +1,8 @@
 from rest_framework import serializers
+from .models import Rainfall
 
-class RainfallSerializer(serializers.Serializer):
-    location = serializers.CharField()
-    latitude = serializers.FloatField()
-    longitude = serializers.FloatField()
-    rainfall_today_mm = serializers.FloatField(allow_null=True)
+class RainfallSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rainfall
+        fields = ['id', 'user', 'location', 'daily_rain_sum', 'precipitation_hours', 'hourly_rain', 'created_at']
+        read_only_fields = ['id', 'user', 'created_at']
