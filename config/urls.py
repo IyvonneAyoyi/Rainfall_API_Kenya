@@ -17,8 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+class HealthCheckView(APIView):
+    """Health check endpoint"""
+    permission_classes = []
+    
+    def get(self, request):
+        return Response({"status": "ok", "message": "Rainfall API is running"})
 
 urlpatterns = [
+    path('', HealthCheckView.as_view(), name='health-check'),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('api/', include('locations.urls')),
