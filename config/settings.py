@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'rainfall',
     'locations',
     'api_logs',
-    'requests',
 ]
 
 MIDDLEWARE = [
