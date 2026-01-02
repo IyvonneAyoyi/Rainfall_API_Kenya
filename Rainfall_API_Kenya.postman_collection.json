@@ -11,11 +11,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{base_url}}/",
-          "host": ["{{base_url}}"],
-          "path": [""]
-        },
+        "url": "{{base_url}}/",
         "description": "Checks if the API is running"
       },
       "response": []
@@ -35,11 +31,7 @@
           "mode": "raw",
           "raw": "{\n  \"username\": \"testuserA123\",\n  \"email\": \"testuserA@example.com\",\n  \"password\": \"Pass123!@#\"\n}"
         },
-        "url": {
-          "raw": "{{base_url}}/users/register/",
-          "host": ["{{base_url}}"],
-          "path": ["users", "register", ""]
-        },
+        "url": "{{base_url}}/users/register/",
         "description": "Creates a new user account"
       },
       "response": []
@@ -59,11 +51,7 @@
           "mode": "raw",
           "raw": "{\n  \"username\": \"testuserA123\",\n  \"password\": \"Pass123!@#\"\n}"
         },
-        "url": {
-          "raw": "{{base_url}}/api/token/",
-          "host": ["{{base_url}}"],
-          "path": ["api", "token", ""]
-        },
+        "url": "{{base_url}}/api/token/",
         "description": "Gets JWT authentication token"
       },
       "response": []
@@ -79,11 +67,7 @@
             "type": "text"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/users/me/",
-          "host": ["{{base_url}}"],
-          "path": ["users", "me", ""]
-        },
+        "url": "{{base_url}}/users/me/",
         "description": "Shows your account information"
       },
       "response": []
@@ -108,11 +92,7 @@
           "mode": "raw",
           "raw": "{\n  \"name\": \"Nairobi\"\n}"
         },
-        "url": {
-          "raw": "{{base_url}}/api/locations/",
-          "host": ["{{base_url}}"],
-          "path": ["api", "locations", ""]
-        },
+        "url": "{{base_url}}/api/locations/",
         "description": "Saves a location using its name"
       },
       "response": []
@@ -137,11 +117,7 @@
           "mode": "raw",
           "raw": "{\n  \"latitude\": \"-0.3531\",\n  \"longitude\": \"36.0800\"\n}"
         },
-        "url": {
-          "raw": "{{base_url}}/api/locations/",
-          "host": ["{{base_url}}"],
-          "path": ["api", "locations", ""]
-        },
+        "url": "{{base_url}}/api/locations/",
         "description": "Saves a location using GPS coordinates"
       },
       "response": []
@@ -157,11 +133,7 @@
             "type": "text"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/api/locations/",
-          "host": ["{{base_url}}"],
-          "path": ["api", "locations", ""]
-        },
+        "url": "{{base_url}}/api/locations/",
         "description": "Lists all locations you've saved"
       },
       "response": []
