@@ -1,0 +1,271 @@
+{
+  "info": {
+    "_postman_id": "rainfall-api-kenya-collection",
+    "name": "Rainfall API Kenya",
+    "description": "Complete test collection for Rainfall API Kenya with all 11 tests pre-configured",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TEST 1 - Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        },
+        "description": "Checks if the API is running"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 2 - Register User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"testuserA123\",\n  \"email\": \"testuserA@example.com\",\n  \"password\": \"Pass123!@#\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/users/register/",
+          "host": ["{{base_url}}"],
+          "path": ["users", "register", ""]
+        },
+        "description": "Creates a new user account"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 3 - Get Login Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"testuserA123\",\n  \"password\": \"Pass123!@#\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/token/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "token", ""]
+        },
+        "description": "Gets JWT authentication token"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 4 - View Your Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/users/me/",
+          "host": ["{{base_url}}"],
+          "path": ["users", "me", ""]
+        },
+        "description": "Shows your account information"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 5 - Add Location by Name",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Nairobi\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/locations/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "locations", ""]
+        },
+        "description": "Saves a location using its name"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 6 - Add Location by Coordinates",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"latitude\": \"-0.3531\",\n  \"longitude\": \"36.0800\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/locations/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "locations", ""]
+        },
+        "description": "Saves a location using GPS coordinates"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 7 - View All Your Locations",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/locations/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "locations", ""]
+        },
+        "description": "Lists all locations you've saved"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 8 - Get Rainfall Data",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/rainfall/1/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "rainfall", "1", ""]
+        },
+        "description": "Shows rainfall information for a location (replace 1 with location ID)"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 9 - Update Location",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Nairobi Central\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/locations/1/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "locations", "1", ""]
+        },
+        "description": "Changes location details (replace 1 with location ID)"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 10 - Delete Location",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/locations/1/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "locations", "1", ""]
+        },
+        "description": "Removes a saved location (replace 1 with location ID)"
+      },
+      "response": []
+    },
+    {
+      "name": "TEST 11 - View API Logs (Admin Only)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/logs/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "logs", ""]
+        },
+        "description": "Shows all API activity (requires admin account)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
