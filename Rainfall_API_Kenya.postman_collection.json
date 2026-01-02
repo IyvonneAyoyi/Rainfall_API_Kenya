@@ -177,11 +177,7 @@
             "type": "text"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/api/rainfall/1/",
-          "host": ["{{base_url}}"],
-          "path": ["api", "rainfall", "1", ""]
-        },
+        "url": "{{base_url}}/api/rainfall/1/",
         "description": "Shows rainfall information for a location (replace 1 with location ID)"
       },
       "response": []
@@ -206,11 +202,7 @@
           "mode": "raw",
           "raw": "{\n  \"name\": \"Nairobi Central\"\n}"
         },
-        "url": {
-          "raw": "{{base_url}}/api/locations/1/",
-          "host": ["{{base_url}}"],
-          "path": ["api", "locations", "1", ""]
-        },
+        "url": "{{base_url}}/api/locations/1/",
         "description": "Changes location details (replace 1 with location ID)"
       },
       "response": []
@@ -226,11 +218,7 @@
             "type": "text"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/api/locations/1/",
-          "host": ["{{base_url}}"],
-          "path": ["api", "locations", "1", ""]
-        },
+        "url": "{{base_url}}/api/locations/1/",
         "description": "Removes a saved location (replace 1 with location ID)"
       },
       "response": []
@@ -246,11 +234,7 @@
             "type": "text"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/api/logs/",
-          "host": ["{{base_url}}"],
-          "path": ["api", "logs", ""]
-        },
+        "url": "{{base_url}}/api/logs/",
         "description": "Shows all API activity (requires admin account)"
       },
       "response": []
